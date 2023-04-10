@@ -67,7 +67,49 @@ contract PayPal {
 
         payable(payableRequest.requestor).transfer(msg.value);
 
+        addHistory(
+            msg.sender,
+            payableRequest.requestor,
+            payableRequest.amount,
+            payableRequest.message
+        );
+
         myRequests[_request] = myRequests[myRequests.length - 1];
         myRequests.pop();
+    }
+
+    function addHistory(
+        address sender,
+        address receiver,
+        uint256 _amount,
+        string memory _message
+    ) private {
+        SendReceive memory newSend;
+        newSend.action = "-";
+        newSend.amount = _amount;
+        newSend.message = _message;
+        newSend.otherParyAddress = receiver;
+
+        if (names[receiver].hasName) {
+            newSend.otherParyName = names[receiver].name;
+        } else {
+            newSend.otherParyName = "NoName";
+        }
+
+        history[sender].push(newSend);
+
+        SendReceive memory newReceive;
+        newReceive.action = "+";
+        newReceive.amount = _amount;
+        newReceive.message = _message;
+        newReceive.otherParyAddress = sender;
+
+        if (names[receiver].hasName) {
+            newReceive.otherParyName = names[receiver].name;
+        } else {
+            newReceive.otherParyName = "NoName";
+        }
+
+        history[receiver].push(newReceive);
     }
 }
