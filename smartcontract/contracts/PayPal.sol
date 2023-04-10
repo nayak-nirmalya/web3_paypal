@@ -141,4 +141,14 @@ contract PayPal {
 
         return (addrs, amnt, msgs, nmes);
     }
+
+    function getMyHistory(
+        address _user
+    ) public view returns (SendReceive[] memory) {
+        return history[_user];
+    }
+
+    function getMyName(address _user) public view returns (UserName memory) {
+        return names[_user];
+    }
 }
