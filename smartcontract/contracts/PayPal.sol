@@ -56,4 +56,18 @@ contract PayPal {
 
         requests[user].push(newRequest);
     }
+
+    function payRequest(uint256 _request) public payable {
+        require(_request < requests[msg.sender].length, "No Such Request.");
+        Request[] storage myRequests = requests[msg.sender];
+        Request storage payableRequest = myRequests[_request];
+
+        uint256 toPay = payableRequest.amount * 1000000000000000000;
+        require(msg.value == (toPay), "Not Correct Amount.");
+
+        payable(payableRequest.requestor).transfer(msg.value);
+
+        myRequests[_request] = myRequests[myRequests.length - 1];
+        myRequests.pop();
+    }
 }
