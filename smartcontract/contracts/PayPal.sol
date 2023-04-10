@@ -24,6 +24,10 @@ contract PayPal {
 
     address public owner;
 
+    mapping(address => UserName) names;
+    mapping(address => Request[]) requests;
+    mapping(address => SendReceive[]) history;
+
     constructor() {
         owner = msg.sender;
     }
