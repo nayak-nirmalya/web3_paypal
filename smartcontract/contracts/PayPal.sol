@@ -31,4 +31,10 @@ contract PayPal {
     constructor() {
         owner = msg.sender;
     }
+
+    function addName(string memory _name) public {
+        UserName storage newUserName = names[msg.sender];
+        newUserName.name = _name;
+        newUserName.hasName = true;
+    }
 }
