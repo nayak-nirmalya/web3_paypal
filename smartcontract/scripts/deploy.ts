@@ -1,23 +1,25 @@
 import { ethers } from "hardhat";
+import { PayPal, PayPal__factory } from "../typechain-types";
+
+const tokens = (no: string) => ethers.utils.parseUnits(no.toString(), "ether");
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
+  // get signers
+  const [owner, myAccount] = await ethers.getSigners();
 
-  const lockedAmount = ethers.utils.parseEther("0.001");
+  // deploy contract
+  const PayPal = (await ethers.getContractFactory("PayPal")) as PayPal__factory;
+  const payPal: PayPal = await PayPal.deploy();
 
-  const Lock = await ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
+  await payPal.deployed();
 
-  await lock.deployed();
+  console.log(`PayPal Deployed to ${payPal.address}`);
 
-  console.log(
-    `Lock with ${ethers.utils.formatEther(lockedAmount)}ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
-  );
+  const myHistory = await payPal.connect(owner).getMyHistory(myAccount.address);
+
+  console.log(`My Transaction History: ${myHistory}`);
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
 main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
