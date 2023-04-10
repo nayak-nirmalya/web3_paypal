@@ -1,0 +1,13 @@
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Progress: resolved 12, reused 3, downloaded 3, added 0
+Progress: resolved 14, reused 3, downloaded 7, added 0
+ ERR_PNPM_NO_MATCHING_VERSION  No matching version found for @ethersproject/providers@5.4.7
+
+This error happened while installing a direct dependency of F:\Windows_Home\Web3\web3_paypal\smartcontract
+
+The latest release of @ethersproject/providers is "5.7.2".
+
+Other releases are:
+  * beta: 6.0.0-beta.8
+
+If you need the full list of all 114 published versions run "$ pnpm view @ethersproject/providers versions".
