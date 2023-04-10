@@ -14,10 +14,6 @@ async function main() {
   await payPal.deployed();
 
   console.log(`PayPal Deployed to ${payPal.address}`);
-
-  const myHistory = await payPal.connect(owner).getMyHistory(myAccount.address);
-
-  console.log(`My Transaction History: ${myHistory}`);
 }
 
 main().catch((error) => {
