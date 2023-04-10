@@ -37,4 +37,23 @@ contract PayPal {
         newUserName.name = _name;
         newUserName.hasName = true;
     }
+
+    function createRequest(
+        address user,
+        uint256 _amount,
+        string memory _message
+    ) public {
+        Request memory newRequest;
+        newRequest.requestor = msg.sender;
+        newRequest.message = _message;
+        newRequest.amount = _amount;
+
+        if (names[msg.sender].hasName) {
+            newRequest.name = names[msg.sender].name;
+        } else {
+            newRequest.name = "NoName";
+        }
+
+        requests[user].push(newRequest);
+    }
 }
