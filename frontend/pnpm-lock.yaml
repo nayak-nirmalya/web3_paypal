@@ -4,6 +4,9 @@ dependencies:
   '@ant-design/icons':
     specifier: ^5.0.1
     version: 5.0.1(react-dom@18.2.0)(react@18.2.0)
+  '@wagmi/chains':
+    specifier: ^0.2.18
+    version: 0.2.18(typescript@4.9.3)
   antd:
     specifier: ^5.4.2
     version: 5.4.2(react-dom@18.2.0)(react@18.2.0)
@@ -1454,6 +1457,17 @@ packages:
 
   /@wagmi/chains@0.2.17(typescript@4.9.3):
     resolution: {integrity: sha512-Boh60XnwsI6dOZ5ACo2aHig7JNpNoU9M5KrMgwzNKonce9LKs/H3/GmCJNP5L9JNfnLih6u76OWN/aJWURlB2w==}
+    peerDependencies:
+      typescript: '>=4.9.4'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      typescript: 4.9.3
+    dev: false
+
+  /@wagmi/chains@0.2.18(typescript@4.9.3):
+    resolution: {integrity: sha512-TqLzrwvUyjjyA24kjPvrhYflvZ8TU7hena+Hl0fH2SW0ENnSB6cd3Uwlk6blv/lfSN0w8mWaRQOchtugKXkHYw==}
     peerDependencies:
       typescript: '>=4.9.4'
     peerDependenciesMeta:

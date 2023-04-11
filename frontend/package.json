@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
+    "@wagmi/chains": "^0.2.18",
     "antd": "^5.4.2",
     "axios": "^1.3.5",
     "react": "^18.2.0",
