@@ -16,5 +16,8 @@
     "moralis": "^2.18.2",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17"
   }
 }
