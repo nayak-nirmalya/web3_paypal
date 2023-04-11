@@ -80,11 +80,22 @@ app.get("/getNameAndBalance", async (req, res) => {
     historyRes.raw as unknown as []
   );
 
+  const reqRes = await Moralis.EvmApi.utils.runContractFunction({
+    chain: process.env.CHAIN_ID,
+    address: process.env.CONTRACT_ADDRESS,
+    functionName: "getMyRequests",
+    abi: ABI,
+    params: { _user: userAddress },
+  });
+
+  const jsonResponseRequests = reqRes.raw;
+
   const jsonResponse = {
     name: jsonResponseName,
     balance: jsonResponseBal,
     dollars: jsonResponseDollar,
     history: jsonResponseHistory,
+    requests: jsonResponseRequests,
   };
 
   return res.status(200).json(jsonResponse);
