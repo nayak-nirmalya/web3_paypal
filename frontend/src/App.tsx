@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
+import logo from "./logo.png";
 import "./App.css";
 
 import { Layout, Button } from "antd";
@@ -11,6 +12,8 @@ import RecentActivity from "./components/RecentActivity";
 import { useConnect, useAccount, useDisconnect } from "wagmi";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import axios from "axios";
+
+const { Header, Content } = Layout;
 
 function App() {
   const { address, isConnected } = useAccount();
