@@ -22,7 +22,19 @@ app.get("/getNameAndBalance", async (req, res) => {
 
   const jsonResponseName = response.raw;
 
-  const jsonResponse = { name: jsonResponseName };
+  const balanceRes = await Moralis.EvmApi.balance.getNativeBalance({
+    chain: process.env.CHAIN_ID,
+    address: userAddress as string,
+  });
+
+  const jsonResponseBal = (
+    (balanceRes.raw.balance as unknown as number) / 1e18
+  ).toFixed(2);
+
+  const jsonResponse = {
+    name: jsonResponseName,
+    balance: jsonResponseBal,
+  };
 
   return res.status(200).json(jsonResponse);
 });
