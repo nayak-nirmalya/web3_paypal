@@ -115,7 +115,7 @@ function App() {
               </div>
             </>
           ) : (
-            <div>Please Login</div>
+            <div>Please Log In to Interact.</div>
           )}
         </Content>
       </Layout>

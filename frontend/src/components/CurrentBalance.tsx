@@ -1,7 +1,11 @@
 import React from "react";
 import { Card } from "antd";
 
-function CurrentBalance({ dollars }) {
+interface CurrentBalanceProps {
+  dollars: string;
+}
+
+const CurrentBalance: React.FC<CurrentBalanceProps> = ({ dollars }) => {
   return (
     <Card title="Current Balance" style={{ width: "100%" }}>
       <div className="currentBalance">
@@ -14,6 +18,6 @@ function CurrentBalance({ dollars }) {
       </div>
     </Card>
   );
-}
+};
 
 export default CurrentBalance;

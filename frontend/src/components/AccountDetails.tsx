@@ -3,7 +3,17 @@ import { Card } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import matic from "../matic.png";
 
-function AccountDetails({ address, name, balance }) {
+interface AccountDetailsProps {
+  name: string;
+  address: string;
+  balance: string;
+}
+
+const AccountDetails: React.FC<AccountDetailsProps> = ({
+  name,
+  address,
+  balance,
+}) => {
   return (
     <Card title="Account Details" style={{ width: "100%" }}>
       <div className="accountDetailRow">
@@ -29,6 +39,6 @@ function AccountDetails({ address, name, balance }) {
       </div>
     </Card>
   );
-}
+};
 
 export default AccountDetails;
