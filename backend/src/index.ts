@@ -10,8 +10,6 @@ app.use(cors());
 app.use(express.json());
 
 function convertArrayToObjects(arr: []) {
-  console.log(arr);
-
   if (arr.length === 0)
     return [
       {
