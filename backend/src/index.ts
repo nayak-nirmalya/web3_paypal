@@ -31,9 +31,18 @@ app.get("/getNameAndBalance", async (req, res) => {
     (balanceRes.raw.balance as unknown as number) / 1e18
   ).toFixed(2);
 
+  const tokenRes = await Moralis.EvmApi.token.getTokenPrice({
+    address: process.env.TOKEN_ADDRESS,
+  });
+
+  const jsonResponseDollar = (
+    tokenRes.raw.usdPrice * Number(jsonResponseBal)
+  ).toFixed(2);
+
   const jsonResponse = {
     name: jsonResponseName,
     balance: jsonResponseBal,
+    dollars: jsonResponseDollar,
   };
 
   return res.status(200).json(jsonResponse);
