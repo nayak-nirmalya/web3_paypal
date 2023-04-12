@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import logo from "./logo.png";
+import payPal from "./assets/PayPal.svg";
 import "./App.css";
 
 import { Layout, Button } from "antd";
@@ -63,7 +61,7 @@ function App() {
       <Layout>
         <Header className="header">
           <div className="headerLeft">
-            <img src={logo} alt="logo" className="logo" />
+            <img src={payPal} alt="logo" className="logo" />
             {isConnected && (
               <>
                 <div
