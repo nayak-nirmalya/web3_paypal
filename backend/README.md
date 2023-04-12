@@ -11,11 +11,13 @@ Try running some of the following command:
 First Set Up Environment Variables as Shown in .env.example
 
 ```shell
+pnpm install
 pnpm start
 ```
 
 OR
 
 ```shell
+pnpm install
 pnpm dev
 ```
