@@ -5,7 +5,7 @@ import matic from "../matic.png";
 
 interface AccountDetailsProps {
   name: string;
-  address: string;
+  address: `0x${string}`;
   balance: string;
 }
 

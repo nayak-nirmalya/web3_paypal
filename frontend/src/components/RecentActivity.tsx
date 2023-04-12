@@ -93,7 +93,13 @@ const columns = [
   {
     title: "Amount",
     key: "amount",
-    render: (_, record) => (
+    render: (
+      _: any,
+      record: {
+        type: string;
+        amount: string;
+      }
+    ) => (
       <div
         style={record.type === "Send" ? { color: "red" } : { color: "green" }}
       >
@@ -104,7 +110,18 @@ const columns = [
   },
 ];
 
-function RecentActivity({ history }) {
+export interface History {
+  history: {
+    key: string;
+    subject: string;
+    type: string;
+    address: string;
+    message: string;
+    amount: string;
+  }[];
+}
+
+const RecentActivity: React.FC<History> = ({ history }) => {
   return (
     <Card title="Recent Activity" style={{ width: "100%", minHeight: "663px" }}>
       {history && (
@@ -116,6 +133,6 @@ function RecentActivity({ history }) {
       )}
     </Card>
   );
-}
+};
 
 export default RecentActivity;

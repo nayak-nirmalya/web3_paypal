@@ -8,7 +8,7 @@ import { Layout, Button } from "antd";
 import CurrentBalance from "./components/CurrentBalance";
 import RequestAndPay from "./components/RequestAndPay";
 import AccountDetails from "./components/AccountDetails";
-import RecentActivity from "./components/RecentActivity";
+import RecentActivity, { History } from "./components/RecentActivity";
 import { useConnect, useAccount, useDisconnect } from "wagmi";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import axios from "axios";
@@ -25,7 +25,7 @@ function App() {
   const [name, setName] = useState("...");
   const [balance, setBalance] = useState("...");
   const [dollars, setDollars] = useState("...");
-  const [history, setHistory] = useState(null);
+  const [history, setHistory] = useState<History>();
   const [requests, setRequests] = useState({ "1": [0], "0": [] });
 
   function disconnectAndSetNull() {
@@ -33,7 +33,7 @@ function App() {
     setName("...");
     setBalance("...");
     setDollars("...");
-    setHistory(null);
+    // setHistory();
     setRequests({ "1": [0], "0": [] });
   }
 
@@ -105,13 +105,13 @@ function App() {
                   getNameAndBalance={getNameAndBalance}
                 />
                 <AccountDetails
-                  address={address}
+                  address={address!}
                   name={name}
                   balance={balance}
                 />
               </div>
               <div className="secondColumn">
-                <RecentActivity history={history} />
+                <RecentActivity history={history?.history} />
               </div>
             </>
           ) : (
