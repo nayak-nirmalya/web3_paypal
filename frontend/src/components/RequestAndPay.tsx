@@ -8,22 +8,40 @@ import {
 } from "wagmi";
 import { polygonMumbai } from "@wagmi/chains";
 import ABI from "../abi.json";
+import { ethers } from "ethers";
 
-function RequestAndPay({ requests, getNameAndBalance }) {
+export interface Request {
+  "0": string[]; // receiver address
+  "1": string[]; // value in matic
+  "2": string[]; // message
+  "3": string[]; // name
+}
+
+interface RequestAndPayProps {
+  requests: Request;
+  getNameAndBalance: () => void;
+}
+
+const RequestAndPay: React.FC<RequestAndPayProps> = ({
+  requests,
+  getNameAndBalance,
+}) => {
   const [payModal, setPayModal] = useState(false);
   const [requestModal, setRequestModal] = useState(false);
-  const [requestAmount, setRequestAmount] = useState(5);
-  const [requestAddress, setRequestAddress] = useState("");
+  const [requestAmount, setRequestAmount] = useState("5");
+  const [requestAddress, setRequestAddress] = useState(
+    "0x59Fa2dFccBA7a3aD381066FFD59B4c5C73981377"
+  );
   const [requestMessage, setRequestMessage] = useState("");
 
   const { config } = usePrepareContractWrite({
     chainId: polygonMumbai.id,
-    address: "0x9c2BF50fE982515f41C084e316801BdA8C22a902",
+    address: "0xe7dBB93Fe4749DD5A8C1f1E86F2CeCf22084dB01",
     abi: ABI,
     functionName: "payRequest",
-    args: [0],
+    args: [ethers.BigNumber.from(0)],
     overrides: {
-      value: String(Number(requests["1"][0] * 1e18)),
+      value: ethers.utils.parseEther(requests["1"][0]),
     },
   });
 
@@ -31,7 +49,7 @@ function RequestAndPay({ requests, getNameAndBalance }) {
 
   const { config: configRequest } = usePrepareContractWrite({
     chainId: polygonMumbai.id,
-    address: "0x9c2BF50fE982515f41C084e316801BdA8C22a902",
+    address: "0xe7dBB93Fe4749DD5A8C1f1E86F2CeCf22084dB01",
     abi: ABI,
     functionName: "createRequest",
     args: [requestAddress, requestAmount, requestMessage],
@@ -83,7 +101,7 @@ function RequestAndPay({ requests, getNameAndBalance }) {
       >
         {requests && requests["0"].length > 0 && (
           <>
-            <h2>Sending payment to {requests["3"][0]}</h2>
+            <h2>Sending Payment to: {requests["3"][0]}</h2>
             <h3>Value: {requests["1"][0]} Matic</h3>
             <p>"{requests["2"][0]}"</p>
           </>
@@ -97,13 +115,13 @@ function RequestAndPay({ requests, getNameAndBalance }) {
           hideRequestModal();
         }}
         onCancel={hideRequestModal}
-        okText="Proceed To Request"
+        okText="Proceed to Request"
         cancelText="Cancel"
       >
         <p>Amount (Matic)</p>
         <InputNumber
           value={requestAmount}
-          onChange={(val) => setRequestAmount(val)}
+          onChange={(val) => setRequestAmount(val!)}
         />
         <p>From (address)</p>
         <Input
@@ -143,6 +161,6 @@ function RequestAndPay({ requests, getNameAndBalance }) {
       </div>
     </>
   );
-}
+};
 
 export default RequestAndPay;

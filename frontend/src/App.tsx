@@ -4,7 +4,7 @@ import "./App.css";
 
 import { Layout, Button } from "antd";
 import CurrentBalance from "./components/CurrentBalance";
-import RequestAndPay from "./components/RequestAndPay";
+import RequestAndPay, { Request } from "./components/RequestAndPay";
 import AccountDetails from "./components/AccountDetails";
 import RecentActivity, { History } from "./components/RecentActivity";
 import { useConnect, useAccount, useDisconnect } from "wagmi";
@@ -24,7 +24,7 @@ function App() {
   const [balance, setBalance] = useState("...");
   const [dollars, setDollars] = useState("...");
   const [history, setHistory] = useState<History[]>();
-  const [requests, setRequests] = useState({ "1": [0], "0": [] });
+  const [requests, setRequests] = useState<Request>();
 
   function disconnectAndSetNull() {
     disconnect();
@@ -32,7 +32,12 @@ function App() {
     setBalance("...");
     setDollars("...");
     setHistory([]);
-    setRequests({ "1": [0], "0": [] });
+    setRequests({
+      "0": [""],
+      "1": [""],
+      "2": [""],
+      "3": [""],
+    });
   }
 
   async function getNameAndBalance() {
@@ -41,7 +46,7 @@ function App() {
     });
 
     const response = res.data;
-    console.log(response.requests);
+
     if (response.name[1]) {
       setName(response.name[0]);
     }
@@ -85,7 +90,6 @@ function App() {
             <Button
               type={"primary"}
               onClick={() => {
-                console.log(requests);
                 connect();
               }}
             >
@@ -98,10 +102,12 @@ function App() {
             <>
               <div className="firstColumn">
                 <CurrentBalance dollars={dollars} />
-                <RequestAndPay
-                  requests={requests}
-                  getNameAndBalance={getNameAndBalance}
-                />
+                {requests && (
+                  <RequestAndPay
+                    requests={requests}
+                    getNameAndBalance={getNameAndBalance}
+                  />
+                )}
                 <AccountDetails
                   address={address!}
                   name={name}
@@ -109,7 +115,7 @@ function App() {
                 />
               </div>
               <div className="secondColumn">
-                <RecentActivity history={history!} />
+                {history && <RecentActivity history={history} />}
               </div>
             </>
           ) : (

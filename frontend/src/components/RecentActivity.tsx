@@ -100,8 +100,10 @@ const columns = [
         amount: string;
       }
     ) => (
-      <div style={record.type === "-" ? { color: "red" } : { color: "green" }}>
-        {record.type}
+      <div
+        style={record.type === "Send" ? { color: "red" } : { color: "green" }}
+      >
+        {record.type === "Send" ? "-" : "+"}
         {record.amount} Matic
       </div>
     ),
@@ -122,11 +124,15 @@ export interface RecentActivityProps {
 }
 
 const RecentActivity: React.FC<RecentActivityProps> = ({ history }) => {
+  const mappedHistory = history.map((item) => {
+    return { ...item, type: item.type === "-" ? "Send" : "Receive" };
+  });
+
   return (
     <Card title="Recent Activity" style={{ width: "100%", minHeight: "663px" }}>
       {history && (
         <Table
-          dataSource={history}
+          dataSource={mappedHistory}
           columns={columns}
           pagination={{ position: ["bottomCenter"], pageSize: 8 }}
         />
