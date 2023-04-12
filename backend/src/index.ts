@@ -27,10 +27,10 @@ function convertArrayToObjects(arr: []) {
     type: transaction[0],
     amount: transaction[1],
     message: transaction[2],
-    address: `${(transaction[3] as string).slice(0, 4)}...${(
-      transaction[3] as string
+    address: `${(transaction[4] as string).slice(0, 4)}...${(
+      transaction[4] as string
     ).slice(38)}`,
-    subject: transaction[4],
+    subject: transaction[3],
   }));
 
   return dataArray.reverse();

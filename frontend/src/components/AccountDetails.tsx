@@ -1,7 +1,7 @@
 import React from "react";
 import { Card } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import matic from "../matic.png";
+import matic from "../assets/matic.png";
 
 interface AccountDetailsProps {
   name: string;

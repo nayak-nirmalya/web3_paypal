@@ -5,7 +5,7 @@ const dataSource = [
   {
     key: "1",
     subject: "Mike",
-    type: "Send",
+    type: "-",
     address: "0x12...2345",
     message: "Cookies 🍪",
     amount: "$3.50",
@@ -13,7 +13,7 @@ const dataSource = [
   {
     key: "2",
     subject: "Amanda",
-    type: "Receive",
+    type: "+",
     address: "0x12...2345",
     message: "Dinner 🍔",
     amount: "$22.30",
@@ -21,7 +21,7 @@ const dataSource = [
   {
     key: "3",
     subject: "Roy",
-    type: "Send",
+    type: "-",
     address: "0x12...2345",
     message: "Movie Tickets",
     amount: "$17.31",
@@ -29,7 +29,7 @@ const dataSource = [
   {
     key: "4",
     subject: "Amanda",
-    type: "Send",
+    type: "-",
     address: "0x12...2345",
     message: "Lunch",
     amount: "$9.20",
@@ -37,7 +37,7 @@ const dataSource = [
   {
     key: "5",
     subject: "Charlie",
-    type: "Send",
+    type: "-",
     address: "0x12...2345",
     message: "Golf ⛳️",
     amount: "$49.99",
@@ -45,7 +45,7 @@ const dataSource = [
   {
     key: "6",
     subject: "Charlie",
-    type: "Receive",
+    type: "+",
     address: "0x12...2345",
     message: "Gatorade",
     amount: "$2.30",
@@ -53,7 +53,7 @@ const dataSource = [
   {
     key: "7",
     subject: "Mike",
-    type: "Send",
+    type: "-",
     address: "0x12...2345",
     message: "Poker ♠️",
     amount: "$3.50",
@@ -61,7 +61,7 @@ const dataSource = [
   {
     key: "8",
     subject: "Jimmy",
-    type: "Send",
+    type: "-",
     address: "0x12...2345",
     message: "Car Fix",
     amount: "$30.00",
@@ -100,10 +100,8 @@ const columns = [
         amount: string;
       }
     ) => (
-      <div
-        style={record.type === "Send" ? { color: "red" } : { color: "green" }}
-      >
-        {record.type === "Send" ? "-" : "+"}
+      <div style={record.type === "-" ? { color: "red" } : { color: "green" }}>
+        {record.type}
         {record.amount} Matic
       </div>
     ),
@@ -111,17 +109,19 @@ const columns = [
 ];
 
 export interface History {
-  history: {
-    key: string;
-    subject: string;
-    type: string;
-    address: string;
-    message: string;
-    amount: string;
-  }[];
+  key: string;
+  subject: string;
+  type: string;
+  address: string;
+  message: string;
+  amount: string;
 }
 
-const RecentActivity: React.FC<History> = ({ history }) => {
+export interface RecentActivityProps {
+  history: History[];
+}
+
+const RecentActivity: React.FC<RecentActivityProps> = ({ history }) => {
   return (
     <Card title="Recent Activity" style={{ width: "100%", minHeight: "663px" }}>
       {history && (

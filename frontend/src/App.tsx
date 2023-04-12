@@ -23,7 +23,7 @@ function App() {
   const [name, setName] = useState("...");
   const [balance, setBalance] = useState("...");
   const [dollars, setDollars] = useState("...");
-  const [history, setHistory] = useState<History>();
+  const [history, setHistory] = useState<History[]>();
   const [requests, setRequests] = useState({ "1": [0], "0": [] });
 
   function disconnectAndSetNull() {
@@ -31,7 +31,7 @@ function App() {
     setName("...");
     setBalance("...");
     setDollars("...");
-    // setHistory();
+    setHistory([]);
     setRequests({ "1": [0], "0": [] });
   }
 
@@ -109,7 +109,7 @@ function App() {
                 />
               </div>
               <div className="secondColumn">
-                <RecentActivity history={history?.history} />
+                <RecentActivity history={history!} />
               </div>
             </>
           ) : (
